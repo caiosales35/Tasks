@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {
+  FlatList,
   SafeAreaView,
   Text,
   ImageBackground,
@@ -14,6 +15,31 @@ import moment from "moment";
 import "moment/locale/pt-br";
 
 export default class TaskList extends Component {
+  state = {
+    tasks: [
+      {
+        id: Math.random(),
+        desc: "Comprar Livro",
+        estimateAt: new Date(),
+        doneAt: new Date(),
+      },
+      {
+        id: Math.random(),
+        desc: "Ler livro",
+        estimateAt: new Date(),
+        doneAt: null,
+      },
+    ],
+  };
+
+  toggleTask = (taskId) => {
+    const tasks = [...this.state.tasks];
+    tasks.forEach((task) => {
+      if (task.id === taskId) task.doneAt = task.doneAt ? null : new Date();
+    });
+    this.setState({ tasks });
+  };
+
   render() {
     const today = moment().locale("pt-br").format("ddd, D [de] MMMM");
     return (
@@ -25,10 +51,12 @@ export default class TaskList extends Component {
           </View>
         </ImageBackground>
         <View style={styles.taskList}>
-          <Task
-            desc="Comprar Livro"
-            estimateAt={new Date()}
-            doneAt={new Date()}
+          <FlatList
+            data={this.state.tasks}
+            keyExtractor={(item) => `${item.id}`}
+            renderItem={({ item }) => (
+              <Task toggleTask={this.toggleTask} {...item} />
+            )}
           />
         </View>
       </SafeAreaView>
