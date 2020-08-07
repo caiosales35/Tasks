@@ -12,6 +12,7 @@ import {
 import Icon from "@expo/vector-icons/FontAwesome";
 
 import Task from "../components/Task";
+import AddTask from "./AddTask";
 import commonStyles from "../commonStyles";
 import todayImage from "../../assets/imgs/today.jpg";
 import moment from "moment";
@@ -20,6 +21,7 @@ import "moment/locale/pt-br";
 export default class TaskList extends Component {
   state = {
     showDoneTasks: true,
+    showAddTask: false,
     visibleTasks: {},
     tasks: [
       {
@@ -70,6 +72,10 @@ export default class TaskList extends Component {
     const today = moment().locale("pt-br").format("ddd, D [de] MMMM");
     return (
       <SafeAreaView style={styles.container}>
+        <AddTask
+          isVisible={this.state.showAddTask}
+          onCancel={() => this.setState({ showAddTask: false })}
+        />
         <ImageBackground style={styles.background} source={todayImage}>
           <View style={styles.iconBar}>
             <TouchableOpacity onPress={this.toggleFilter}>
