@@ -100,6 +100,13 @@ export default class TaskList extends Component {
             )}
           />
         </View>
+        <TouchableOpacity
+          style={styles.addButton}
+          onPress={() => this.setState({ showAddTask: true })}
+          activeOpacity={0.7}
+        >
+          <Icon name="plus" color={commonStyles.colors.secondary} size={20} />
+        </TouchableOpacity>
       </SafeAreaView>
     );
   }
@@ -138,5 +145,16 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     justifyContent: "flex-end",
     marginTop: Platform.OS === "ios" ? 40 : 30,
+  },
+  addButton: {
+    position: "absolute",
+    right: 30,
+    bottom: 30,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: commonStyles.colors.today,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
