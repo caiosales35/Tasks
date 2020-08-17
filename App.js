@@ -1,7 +1,7 @@
 import React from "react";
 import { AppLoading } from "expo";
 import { useFonts } from "expo-font";
-import Auth from "./src/screens/Auth";
+import Navigator from "./src/Navigator";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -11,6 +11,6 @@ export default function App() {
   if (!fontsLoaded) {
     return <AppLoading />;
   } else {
-    return <Auth />;
+    return <Navigator />;
   }
 }
