@@ -5,13 +5,12 @@ import {
   Text,
   StyleSheet,
   View,
-  TextInput,
   TouchableOpacity,
-  Platform,
 } from "react-native";
 
 import commonStyles from "../commonStyles";
 import backgroundImage from "../../assets/imgs/login.jpg";
+import AuthInput from "../components/Authinput";
 
 export default class Auth extends Component {
   state = {
@@ -36,21 +35,24 @@ export default class Auth extends Component {
             {this.state.stageNew ? "Crie sua conta" : "Informe seus dados"}
           </Text>
           {this.state.stageNew && (
-            <TextInput
+            <AuthInput
+              icon="user"
               placeholder="Nome"
               style={styles.input}
               value={this.state.name}
               onChangeText={(name) => this.setState({ name })}
             />
           )}
-          <TextInput
+          <AuthInput
+            icon="at"
             placeholder="E-mail"
             style={styles.input}
             value={this.state.email}
             onChangeText={(email) => this.setState({ email })}
             textContentType={"emailAddress"}
           />
-          <TextInput
+          <AuthInput
+            icon="lock"
             placeholder="Senha"
             style={styles.input}
             value={this.state.password}
@@ -58,7 +60,8 @@ export default class Auth extends Component {
             secureTextEntry={true}
           />
           {this.state.stageNew && (
-            <TextInput
+            <AuthInput
+              icon="asterisk"
               placeholder="Confirme a senha"
               style={styles.input}
               value={this.state.confirmPassword}
@@ -112,7 +115,6 @@ const styles = StyleSheet.create({
   input: {
     marginTop: 10,
     backgroundColor: "#FFF",
-    padding: Platform.OS === "ios" ? 15 : 10,
   },
   formContainer: {
     backgroundColor: "rgba(0, 0, 0, 0.8)",
@@ -124,6 +126,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     padding: 10,
     alignItems: "center",
+    borderRadius: 7,
   },
   buttonText: {
     fontFamily: commonStyles.fontFamily,
