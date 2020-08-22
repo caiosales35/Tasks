@@ -1,41 +1,15 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { createDrawerNavigator } from "@react-navigation/drawer";
+import {
+  createDrawerNavigator,
+  useIsDrawerOpen,
+} from "@react-navigation/drawer";
 
 import Auth from "./screens/Auth";
 import TaskList from "./screens/TaskList";
-
-const menuRoutes = {
-  Today: {
-    name: "Today",
-    screen: (props) => <TaskList title="Hoje" daysAhead={0} {...props} />,
-    navigationOptions: {
-      title: "Hoje",
-    },
-  },
-  Tomorrow: {
-    name: "Tomorrow",
-    screen: (props) => <TaskList title="Amanhã" daysAhead={1} {...props} />,
-    navigationOptions: {
-      title: "Amanhã",
-    },
-  },
-  Week: {
-    name: "Week",
-    screen: (props) => <TaskList title="Semana" daysAhead={7} {...props} />,
-    navigationOptions: {
-      title: "Semana",
-    },
-  },
-  Month: {
-    name: "Month",
-    screen: (props) => <TaskList title="Mes" daysAhead={30} {...props} />,
-    navigationOptions: {
-      title: "Mes",
-    },
-  },
-};
+import Menu from "./screens/Menu";
+import commonStyles from "./commonStyles";
 
 const Today = (props) => <TaskList title="Hoje" daysAhead={0} {...props} />;
 const Tomorrow = (props) => (
@@ -44,10 +18,34 @@ const Tomorrow = (props) => (
 const Week = (props) => <TaskList title="Semana" daysAhead={7} {...props} />;
 const Month = (props) => <TaskList title="Mes" daysAhead={30} {...props} />;
 
+const menuConfig_ = {
+  contentComponent: Menu,
+  contentOptions: {
+    labelStyle: {},
+    activeLabelStyle: {
+      color: "#800",
+      fontWeight: "bold",
+    },
+  },
+};
+
+const configs = {
+  activeTintColor: "#080",
+  labelStyle: {
+    fontFamily: commonStyles.fontFamily,
+    fontSize: 15,
+    fontWeight: "bold",
+  },
+};
+
 const Drawer = createDrawerNavigator();
 function drawerNavigator() {
   return (
-    <Drawer.Navigator>
+    <Drawer.Navigator
+      initialRouteName="Today"
+      drawerContent={(props) => <Menu {...props} />}
+      drawerContentOptions={configs}
+    >
       <Drawer.Screen
         name="Today"
         component={Today}
