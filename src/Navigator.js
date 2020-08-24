@@ -39,11 +39,12 @@ const configs = {
 };
 
 const Drawer = createDrawerNavigator();
-function drawerNavigator() {
+function drawerNavigator({ route }) {
+  const { email, name } = route.params;
   return (
     <Drawer.Navigator
       initialRouteName="Today"
-      drawerContent={(props) => <Menu {...props} />}
+      drawerContent={(props) => <Menu {...props} email={email} name={name} />}
       drawerContentOptions={configs}
     >
       <Drawer.Screen
