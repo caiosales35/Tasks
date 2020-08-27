@@ -6,6 +6,7 @@ import {
   useIsDrawerOpen,
 } from "@react-navigation/drawer";
 
+import AuthOrApp from "./screens/AuthOrApp";
 import Auth from "./screens/Auth";
 import TaskList from "./screens/TaskList";
 import Menu from "./screens/Menu";
@@ -76,9 +77,10 @@ const Stack = createStackNavigator();
 export default () => (
   <NavigationContainer>
     <Stack.Navigator
-      initialRouteName="Auth"
+      initialRouteName="AuthOrApp"
       screenOptions={{ headerShown: false }}
     >
+      <Stack.Screen name="AuthOrApp" component={AuthOrApp} />
       <Stack.Screen name="Auth" component={Auth} />
       <Stack.Screen name="Home" component={drawerNavigator} />
     </Stack.Navigator>
