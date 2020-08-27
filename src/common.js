@@ -1,9 +1,11 @@
-import { Alert, Platform } from "react-native";
+import { Alert } from "react-native";
 
 const server = "http://192.168.0.105:3333";
 
 function showError(err) {
-  Alert.alert("Erro de conexão", `Erro: ${err}`);
+  if (err.response && err.response.data)
+    Alert.alert("Ocorreu um problema!", `Erro: ${err.response.data}`);
+  else Alert.alert("Ocorreu um problema...");
 }
 
 function showSuccess(msg) {

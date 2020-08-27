@@ -6,6 +6,7 @@ import {
   useIsDrawerOpen,
 } from "@react-navigation/drawer";
 
+import AuthOrApp from "./screens/AuthOrApp";
 import Auth from "./screens/Auth";
 import TaskList from "./screens/TaskList";
 import Menu from "./screens/Menu";
@@ -39,11 +40,12 @@ const configs = {
 };
 
 const Drawer = createDrawerNavigator();
-function drawerNavigator() {
+function drawerNavigator({ route }) {
+  const { email, name } = route.params;
   return (
     <Drawer.Navigator
       initialRouteName="Today"
-      drawerContent={(props) => <Menu {...props} />}
+      drawerContent={(props) => <Menu {...props} email={email} name={name} />}
       drawerContentOptions={configs}
     >
       <Drawer.Screen
@@ -75,9 +77,10 @@ const Stack = createStackNavigator();
 export default () => (
   <NavigationContainer>
     <Stack.Navigator
-      initialRouteName="Auth"
+      initialRouteName="AuthOrApp"
       screenOptions={{ headerShown: false }}
     >
+      <Stack.Screen name="AuthOrApp" component={AuthOrApp} />
       <Stack.Screen name="Auth" component={Auth} />
       <Stack.Screen name="Home" component={drawerNavigator} />
     </Stack.Navigator>
