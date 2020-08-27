@@ -11,7 +11,9 @@ export default class AuthOrApp extends Component {
     let userData = null;
     try {
       userData = JSON.parse(userDataJson);
-    } catch (e) {}
+    } catch (e) {
+      this.props.navigation.navigate("Auth");
+    }
     if (userData && userData.token) {
       axios.defaults.headers.common[
         "Authorization"
